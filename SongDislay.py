@@ -8,7 +8,7 @@ import librosa
 import librosa.feature
 import librosa.display
 import matplotlib.pyplot as plt
-
+song="f.wav"
 def display_mfcc(song): #reprezentacja posczegolnej piosenki
     y, _ = librosa.load(song)
     mfcc = librosa.feature.mfcc(y)
@@ -19,4 +19,4 @@ def display_mfcc(song): #reprezentacja posczegolnej piosenki
     plt.title(song)
     plt.tight_layout()
     plt.show()
-display_mfcc('ToS2.mp3')
+display_mfcc(song)

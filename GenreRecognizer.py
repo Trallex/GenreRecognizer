@@ -27,9 +27,9 @@ def extract_features_song(f): #normalizacja danych (-1,1) dla sieci neuronowych
 def generate_features_and_labels():
     all_features = []
     all_labels = []
-    genres =['blues','classical', 'country', 'disco', 'hiphop', 'jazz', 'metal', 'pop', 'reagge', 'rock']
+    genres =['blues','classical', 'country', 'disco', 'dubstep', 'jazz', 'metal', 'pop', 'reagge', 'rock']
     for genre in genres:
-        sound_files = glob.glob('genres/'+genre+'/*.au')
+        sound_files = glob.glob('genres/'+genre+'/*.wav')
         print('Processing %d songs in %s genre...' %(len(sound_files), genre))
         for f in sound_files:
             features = extract_features_song(f)
@@ -48,6 +48,8 @@ alldata = np.column_stack((features, labels))
 np.random.shuffle(alldata)
 splitidx = int(len(alldata) * training_split)
 train, test = alldata[:splitidx,:], alldata[splitidx:,:]
+
+#print rozmiarow tablic, zmiania rozmiaru o 10 (ze stackowania)
 print(np.shape(train))
 print(np.shape(test))
 train_input = test[:,:-10]
@@ -66,7 +68,7 @@ model = Sequential([
         ])
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 print(model.summary())
-model.fit(train_input, train_labels, epochs=10, batch_size=32, validation_split=0.2)
-loss, accuracy = model.evaluate(test_input, test_labels, batch_size=32)
+model.fit(train_input, train_labels, epochs=2, batch_size=10, validation_split=0.2)
+loss, accuracy = model.evaluate(test_input, test_labels, batch_size=10)
 print("Loss: %.4f, accuracy: %.4F" %(loss, accuracy))
 
