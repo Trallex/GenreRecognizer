@@ -68,7 +68,7 @@ model = Sequential([
         ])
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 print(model.summary())
-model.fit(train_input, train_labels, epochs=2, batch_size=10, validation_split=0.2)
-loss, accuracy = model.evaluate(test_input, test_labels, batch_size=10)
+model.fit(train_input, train_labels, epochs=10, batch_size=32, validation_split=0.2)
+loss, accuracy = model.evaluate(test_input, test_labels, batch_size=32)
 print("Loss: %.4f, accuracy: %.4F" %(loss, accuracy))
 
