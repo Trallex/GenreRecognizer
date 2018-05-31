@@ -10,7 +10,7 @@ Created on Fri May 18 19:38:38 2018
 import librosa
 import librosa.feature
 import librosa.display
-
+from keras.models import model_from_json
 import glob
 import numpy as np
 
@@ -78,3 +78,10 @@ model.fit(train_input, train_labels, epochs=10, batch_size=32, validation_split=
 loss, accuracy = model.evaluate(test_input, test_labels, batch_size=32)
 print("Loss: %.4f, accuracy: %.4F" %(loss, accuracy))
 
+# serialize model to JSON
+model_json = model.to_json()
+with open("model.json", "w") as json_file:
+    json_file.write(model_json)
+# serialize weights to HDF5
+model.save_weights("model.h5")
+print("Saved model to disk")
