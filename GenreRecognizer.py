@@ -5,12 +5,9 @@ Created on Fri May 18 19:38:38 2018
 @author: jurij
 """
 
-#print("costam")
 
 import librosa
 import librosa.feature
-import librosa.display
-from keras.models import model_from_json
 import glob
 import numpy as np
 
@@ -42,7 +39,7 @@ def generate_features_and_labels():
     return np.stack(all_features), onehot_labels
 
 
-features, labels =generate_features_and_labels()
+features, labels = generate_features_and_labels()
 
 print('Features:', np.shape(features)) 
 print('Labels: ', np.shape(labels))
@@ -72,16 +69,13 @@ model = Sequential([
         ])
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 print(model.summary())
-print('dupa')
+
 
 model.fit(train_input, train_labels, epochs=10, batch_size=32, validation_split=0.2)
 loss, accuracy = model.evaluate(test_input, test_labels, batch_size=32)
 print("Loss: %.4f, accuracy: %.4F" %(loss, accuracy))
 
-# serialize model to JSON
-model_json = model.to_json()
-with open("model.json", "w") as json_file:
-    json_file.write(model_json)
-# serialize weights to HDF5
-model.save_weights("model.h5")
+
+model.save("genres.model")
+np.save('classes.npy', labels.classes_)
 print("Saved model to disk")
