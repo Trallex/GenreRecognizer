@@ -8,7 +8,9 @@ import librosa
 import librosa.feature
 import librosa.display
 import matplotlib.pyplot as plt
-song="f.wav"
+
+song="8.wav"
+
 def display_mfcc(song): #reprezentacja posczegolnej piosenki
     y, _ = librosa.load(song)
     mfcc = librosa.feature.mfcc(y)
@@ -16,7 +18,8 @@ def display_mfcc(song): #reprezentacja posczegolnej piosenki
     plt.figure(figsize=(10,4))
     librosa.display.specshow(mfcc, x_axis='time', y_axis='mel')
     plt.colorbar()
-    plt.title(song)
+    plt.title('Riders on the Storm')
     plt.tight_layout()
     plt.show()
+
 display_mfcc(song)

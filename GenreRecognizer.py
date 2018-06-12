@@ -62,7 +62,7 @@ print(np.shape(train_labels))
     
 #siec neuronowa
 model = Sequential([
-        Dense(20, input_dim=np.shape(train_input)[1]),
+        Dense(100, input_dim=np.shape(train_input)[1]),
         Activation('relu'),
         Dense(10),
         Activation('softmax')
@@ -72,10 +72,10 @@ print(model.summary())
 
 
 model.fit(train_input, train_labels, epochs=10, batch_size=32, validation_split=0.2)
+
 loss, accuracy = model.evaluate(test_input, test_labels, batch_size=32)
 print("Loss: %.4f, accuracy: %.4F" %(loss, accuracy))
 
-
 model.save("genres.model")
-np.save('classes.npy', labels.classes_)
+
 print("Saved model to disk")
